@@ -1,5 +1,8 @@
 # MethodsProject
 
+7/20/2022: Readme file to keep track of current plans added, as well as .sql files for our two database tables, inventory and cart
+
+
 Inventory:
 
 Book title, Author, Publisher, Quantity in stock, Price, ISBN (primary key)
