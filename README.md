@@ -7,7 +7,7 @@ Inventory:
 
 Book title, Author, Publisher, Quantity in stock, Price, ISBN (primary key)
 
-Display stock: gets queries from the sql inventory table to display the items in the terminal
+Display stock: gets queries from the sql inventory table to display the items in the terminal  (Ruth)
 
 Add Item: creates an sql insert command to add inventory items to the inventory table
 
@@ -17,7 +17,7 @@ Shopping cart:
 
 ISBN (foreign key), Quantity purchased, Total Price
 
-Display shopping cart: gets queries from sql shopping cart table to display the items in the terminal
+Display shopping cart: gets queries from sql shopping cart table to display the items in the terminal (Ruth)
 
 Add to cart: creates an sql insert command to add an item to the shopping cart table
 
