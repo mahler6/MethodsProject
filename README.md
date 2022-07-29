@@ -9,9 +9,9 @@ Book title, Author, Publisher, Quantity in stock, Price, ISBN (primary key)
 
 Display stock: gets queries from the sql inventory table to display the items in the terminal  (Ruth)
 
-Add Item: creates an sql insert command to add inventory items to the inventory table
+Add Item: creates an sql insert command to add inventory items to the inventory table (Tyler)
 
-Lower stock: creates an sql update command to lower the stock number of an inventory item depending on the number of that item being bought through the shopping cart
+Lower stock: creates an sql update command to lower the stock number of an inventory item depending on the number of that item being bought through the shopping cart (Tyler)
 
 Shopping cart:
 
@@ -23,7 +23,7 @@ Add to cart: creates an sql insert command to add an item to the shopping cart t
 
 Remove from cart: creates an sql delete command to remove an item from shopping cart (Jessie)
 
-Checkout: should use the "Lower stock" function from Inventory to lower stock numbers, then uses an sql command to delete all items in the shopping cart
+Checkout: should use the "Lower stock" function from Inventory to lower stock numbers, then uses an sql command to delete all items in the shopping cart (Claire)
 
 NOTE: Add to cart should take into account the current stock of the item in the inventory, it would make no sense for it to allow you to purchase 5 of something if there are only 3 in stock, and this could cause issues
 
