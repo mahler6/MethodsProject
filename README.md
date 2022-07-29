@@ -19,9 +19,9 @@ ISBN (foreign key), Quantity purchased, Total Price
 
 Display shopping cart: gets queries from sql shopping cart table to display the items in the terminal (Ruth)
 
-Add to cart: creates an sql insert command to add an item to the shopping cart table
+Add to cart: creates an sql insert command to add an item to the shopping cart table (Jessie)
 
-Remove from cart: creates an sql delete command to remove an item from shopping cart
+Remove from cart: creates an sql delete command to remove an item from shopping cart (Jessie)
 
 Checkout: should use the "Lower stock" function from Inventory to lower stock numbers, then uses an sql command to delete all items in the shopping cart
 
