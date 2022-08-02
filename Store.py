@@ -24,19 +24,19 @@ class Inventory:
 
    def getAuthor(self):
 
-      return self.Title
+      return self.Author
 
    def getPublisher(self):
 
-      return self.Title
+      return self.Publisher
 
    def getStock(self):
 
-      return self.Title
+      return self.Stock
 
    def getPrice(self):
 
-      return self.Title
+      return self.Price
 
    def getISBN(self):
 
