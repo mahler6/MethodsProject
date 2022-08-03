@@ -102,22 +102,24 @@ class Cart:
       
 def main():
    while True:
+      i = Inventory("Test Title", "Test Author", "Test Publisher", 0, 0.00, "000-0000000000")
+      c = Cart("000-0000000000", 0, 0.00)
       print("Welcome to the online book store!")
       print("Here are your options:")
       print("1. View Inventory\n2. Add to Inventory\n3. View Cart\n4. Add to Cart\n5. Remove from Cart\n6. Checkout\n7. Exit")
       option = int(input("Make your selection: "))
       if option == 1:
-         Inventory.Display_inventory()
+         i.Display_inventory()
       elif option == 2:
-         Inventory.Add_inventory()
+         i.Add_inventory()
       elif option == 3:
-         Cart.Display_cart()
+         c.Display_cart()
       elif option == 4:
-         Cart.Add_to_cart()
+         c.Add_to_cart()
       elif option == 5:
-         Cart.Remove_from_cart()
+         c.Remove_from_cart()
       elif option == 6:
-         Cart.Checkout()
+         c.Checkout()
       elif option == 7:
          return
       else:
