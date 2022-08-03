@@ -51,8 +51,20 @@ class Inventory:
       except:
          print("Failed connection.")
          sys.exit()   
-
-
+         
+    def display_inventory():
+      connection, cursor = self.Connect_cart()
+      selectInventoryQuery = "SELECT * FROM inventory" 
+      
+      cursor.execute(selectInventoryQuery)
+      connection.commit()
+      
+      result = cursor.fetchall()
+      for row in result:
+         print(row)
+      
+      cursor.close()
+      connection.close()
 
 class Cart:
 
@@ -87,6 +99,21 @@ class Cart:
       except:
          print("Failed connection.")
          sys.exit()
+         
+    def display_cart():
+      connection, cursor = self.Connect_cart()
+      selectCartQuery = "SELECT * FROM cart" 
+      
+      cursor.execute(selectCartQuery)
+      connection.commit()
+      
+      result = cursor.fetchall()
+      for row in result:
+         print(row)
+      
+      cursor.close()
+      connection.close()
+         
    def Checkout():
       connection, cursor = Cart.Connect_cart()
       #rows = cursor.execute("SELECT COUNT(ISBN) FROM cart")
