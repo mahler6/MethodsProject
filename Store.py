@@ -1,3 +1,6 @@
+import mysql.connector
+import sys
+
 
 
 class Inventory:
@@ -42,7 +45,7 @@ class Inventory:
 
       return self.ISBN
 
-   def Connect_inventory():
+   def Connect_inventory(self):
       try:
          connection = mysql.connector.connect(host="localhost" ,user="root", password="", database="MethodsProject")
          print("Successful connection.")
@@ -52,16 +55,20 @@ class Inventory:
          print("Failed connection.")
          sys.exit()   
          
-    def display_inventory():
-      connection, cursor = self.Connect_cart()
+   def display_inventory(self):
+      connection, cursor = self.Connect_inventory()
       selectInventoryQuery = "SELECT * FROM inventory" 
       
       cursor.execute(selectInventoryQuery)
-      connection.commit()
       
       result = cursor.fetchall()
+      connection.commit()
+      
       for row in result:
-         print(row)
+         print("ISBN:", row[0], "||  Title:", row[1], "||  Author:", row[2])
+         print("\tPublisher:", row[3], "||  In Stock:", row[4], "||  Price:$", row[5])
+         print()
+         
       
       cursor.close()
       connection.close()
@@ -90,7 +97,7 @@ class Cart:
 
       return self.Total
 
-   def Connect_cart():
+   def Connect_cart(self):
       try:
          connection = mysql.connector.connect(host="localhost",user="root",password="",database="MethodsProject")
          print("Successful connection.")
@@ -100,41 +107,44 @@ class Cart:
          print("Failed connection.")
          sys.exit()
          
-    def display_cart():
+   def display_cart(self):
       connection, cursor = self.Connect_cart()
       selectCartQuery = "SELECT * FROM cart" 
-      
+
       cursor.execute(selectCartQuery)
+
+      result = cursor.fetchall()
       connection.commit()
       
-      result = cursor.fetchall()
       for row in result:
-         print(row)
+         print("ISBN:", row[0], "||  Quantity in Cart:", row[1], "||  Total price:$", row[2])
       
       cursor.close()
       connection.close()
          
-    def Add_to_cart():
+   def Add_to_cart(self):
       connection, cursor = self.Connect_cart()
       
       item = input("Which item would you like to add to cart? (Enter ISBN): ")
+      if len(item) != 13:
+         item = input("That is not a valid ISBN number, please try again: ")
       quantity = int(input("How many copies would you like to add to cart? "))
         
-      selectPriceQuery = "SELECT Price FROM Inventory WHERE ISBN=%s" 
-      data = (item)
-      cursor.execute(selectPriceQuery,data)
+      selectPriceQuery = "SELECT Price FROM inventory WHERE ISBN= %s" 
+      data = (item,)
+      cursor.execute(selectPriceQuery, data)
       resultPrice = cursor.fetchall()
       
-      total = quantity * resultPrice
+      total = quantity * resultPrice[0][0]
         
-      selectStockQuery = "SELECT Stock FROM Inventory WHERE ISBN=%s"
-      data2 = (item)
+      selectStockQuery = "SELECT Stock FROM inventory WHERE ISBN=%s"
+      data2 = (item,)
       cursor.execute(selectStockQuery,data2)
       resultStock = cursor.fetchall()
         
-      if quantity <= resultStock:  
+      if quantity <= resultStock[0][0]:  
         
-          query = "INSERT INTO cart (ISBN, Quantity, Total) VALUES (%s, %s, %s)"
+          query = "INSERT INTO cart (ISBN, Quantity, Price) VALUES (%s, %s, %s)"
           data3 = (item, quantity, total)
             
           cursor.execute(query,data3)
@@ -148,7 +158,7 @@ class Cart:
       cursor.close()
       connection.close()
      
-   def Remove_from_cart():
+   def Remove_from_cart(self):
       connection, cursor = self.Connect_cart()
         
       item = input("Which item would you like to remove from cart? (Enter ISBN): ")
@@ -161,8 +171,8 @@ class Cart:
       cursor.close()
       connection.close()      
          
-   def Checkout():
-      connection, cursor = Cart.Connect_cart()
+   def Checkout(self):
+      connection, cursor = self.Connect_cart()
       #rows = cursor.execute("SELECT COUNT(ISBN) FROM cart")
       #for r in rows:
          #Inventory.lowerstock()
@@ -180,26 +190,25 @@ def main():
       c = Cart("000-0000000000", 0, 0.00)
       print("Welcome to the online book store!")
       print("Here are your options:")
-      print("1. View Inventory\n2. Add to Inventory\n3. View Cart\n4. Add to Cart\n5. Remove from Cart\n6. Checkout\n7. Exit")
+      print("1. View Inventory\n2. View Cart\n3. Add to Cart\n4. Remove from Cart\n5. Checkout\n6. Exit")
       option = int(input("Make your selection: "))
       if option == 1:
-         i.Display_inventory()
+         i.display_inventory()
       elif option == 2:
-         i.Add_inventory()
+         c.display_cart()
       elif option == 3:
-         c.Display_cart()
-      elif option == 4:
          c.Add_to_cart()
-      elif option == 5:
+      elif option == 4:
          c.Remove_from_cart()
-      elif option == 6:
+      elif option == 5:
          c.Checkout()
-      elif option == 7:
+      elif option == 6:
          return
       else:
          print("You have entered an incorrect value, please try again:")
 
 
 main()
+  
 
 
