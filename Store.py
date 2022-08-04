@@ -114,6 +114,53 @@ class Cart:
       cursor.close()
       connection.close()
          
+    def Add_to_cart():
+      connection, cursor = self.Connect_cart()
+      
+      item = input("Which item would you like to add to cart? (Enter ISBN): ")
+      quantity = int(input("How many copies would you like to add to cart? "))
+        
+      selectPriceQuery = "SELECT Price FROM Inventory WHERE ISBN=%s" 
+      data = (item)
+      cursor.execute(selectPriceQuery,data)
+      resultPrice = cursor.fetchall()
+      
+      total = quantity * resultPrice
+        
+      selectStockQuery = "SELECT Stock FROM Inventory WHERE ISBN=%s"
+      data2 = (item)
+      cursor.execute(selectStockQuery,data2)
+      resultStock = cursor.fetchall()
+        
+      if quantity <= resultStock:  
+        
+          query = "INSERT INTO cart (ISBN, Quantity, Total) VALUES (%s, %s, %s)"
+          data3 = (item, quantity, total)
+            
+          cursor.execute(query,data3)
+          connection.commit() 
+          print(cursor.rowcount, "record inserted, item is added to cart.")   
+          cursor.close()
+          connection.close()
+      else:
+          print("Error. There are not enough items in stock to add to cart.")
+      
+      cursor.close()
+      connection.close()
+     
+   def Remove_from_cart():
+      connection, cursor = self.Connect_cart()
+        
+      item = input("Which item would you like to remove from cart? (Enter ISBN): ")
+        
+      query = "DELETE FROM cart WHERE ISBN=%s"
+      data = (item,)
+      cursor.execute(query,data)
+      connection.commit()
+      print(cursor.rowcount, "record deleted, item is removed from cart.")
+      cursor.close()
+      connection.close()      
+         
    def Checkout():
       connection, cursor = Cart.Connect_cart()
       #rows = cursor.execute("SELECT COUNT(ISBN) FROM cart")
